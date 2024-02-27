@@ -10,7 +10,7 @@ import Foundation
 struct Forecast: Decodable {
     let cod: String
     let message: Int
-    let list: [ListElem]?
+    var list: [ListElem]?
     let city: City?
 }
 struct City: Decodable {
@@ -18,7 +18,8 @@ struct City: Decodable {
     let coord: Coordinates
 }
 struct ListElem: Decodable {
-    let main: Main?
-    let weather: [VisualWeather]?
-    let visibility: Int?
+    let main: Main
+    let weather: [VisualWeather]
+    let visibility: Int
+    let dt_txt: String
 }

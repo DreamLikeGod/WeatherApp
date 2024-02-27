@@ -89,7 +89,11 @@ final class NetworkService: iNetworkService {
         getCoordinate(from: city) { [weak self] location in
             self?.sendRequest(type: .forecast, with: location.latitude, and: location.longitude, completion: { [weak self] data in
                 self?.parseData(from: data, in: Forecast.self, completion: { weather in
-                    self?.relayForecastWeather.accept(weather)
+                    var forecast = weather
+                    forecast.list = weather.list?.filter({
+                        $0.dt_txt.contains("12:00:00")
+                    })
+                    self?.relayForecastWeather.accept(forecast)
                 })
             })
         }
